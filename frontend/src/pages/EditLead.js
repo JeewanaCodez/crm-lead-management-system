@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -14,13 +14,7 @@ function EditLead() {
 
     const [formData, setFormData] = useState({});
 
-    useEffect(() => {
-
-        fetchLead();
-
-    }, []);
-
-    const fetchLead = async () => {
+    const fetchLead = useCallback(async () => {
 
         try {
 
@@ -34,7 +28,13 @@ function EditLead() {
 
         }
 
-    };
+    }, [id]);
+
+    useEffect(() => {
+
+        fetchLead();
+
+    }, [fetchLead]);
 
     const handleChange = (e) => {
 
@@ -80,11 +80,13 @@ function EditLead() {
 
     return (
 
-        <div>
+    <div>
 
-            <Navbar />
+        <Navbar />
 
-            <div className="container">
+        <div className="container">
+
+            <div className="form-page">
 
                 <h1>Edit Lead</h1>
 
@@ -169,8 +171,9 @@ function EditLead() {
 
         </div>
 
-    );
+    </div>
 
+);
 }
 
 export default EditLead;

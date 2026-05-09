@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -13,18 +13,14 @@ function Leads() {
     const [search, setSearch] = useState("");
 
     const [status, setStatus] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-
-        fetchLeads();
-
-    }, [search, status]);
-
-
-
-    const fetchLeads = async () => {
+    const fetchLeads = useCallback(async () => {
 
         try {
+            setLoading(true);
+            setError("");
 
             let query = "/leads?";
 
@@ -42,11 +38,20 @@ function Leads() {
 
         } catch (error) {
 
-            console.log(error);
+            console.log("Error fetching leads:", error);
+            setError(error.message || "Failed to fetch leads");
 
+        } finally {
+            setLoading(false);
         }
 
-    };
+    }, [search, status]);
+
+    useEffect(() => {
+
+        fetchLeads();
+
+    }, [fetchLeads]);
 
 
 
@@ -98,7 +103,7 @@ function Leads() {
 
                     <input
                         type="text"
-                        placeholder="Search leads..."
+                        placeholder="Search by name, company or email..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -126,7 +131,9 @@ function Leads() {
 
                 </div>
 
+                {error && <div style={{color: 'red', padding: '10px', marginBottom: '10px', border: '1px solid red'}}>{error}</div>}
 
+                {loading && <div style={{padding: '10px'}}>Loading leads...</div>}
 
                 <table>
 

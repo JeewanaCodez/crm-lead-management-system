@@ -16,15 +16,21 @@ function Navbar() {
 
         <nav className="navbar">
 
-            <h2>CRM System</h2>
+            <h2>CRM Pro</h2>
 
             <div>
 
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard">
+                    Dashboard
+                </Link>
 
-                <Link to="/leads">Leads</Link>
+                <Link to="/leads">
+                    Leads
+                </Link>
 
-                <Link to="/create-lead">Create Lead</Link>
+                <Link to="/create-lead">
+                    Create Lead
+                </Link>
 
                 <button onClick={logout}>
                     Logout

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -16,15 +16,7 @@ function LeadDetails() {
 
     const [noteContent, setNoteContent] = useState("");
 
-    useEffect(() => {
-
-        fetchLead();
-
-        fetchNotes();
-
-    }, []);
-
-    const fetchLead = async () => {
+    const fetchLead = useCallback(async () => {
 
         try {
 
@@ -38,9 +30,9 @@ function LeadDetails() {
 
         }
 
-    };
+    }, [id]);
 
-    const fetchNotes = async () => {
+    const fetchNotes = useCallback(async () => {
 
         try {
 
@@ -54,7 +46,15 @@ function LeadDetails() {
 
         }
 
-    };
+    }, [id]);
+
+    useEffect(() => {
+
+        fetchLead();
+
+        fetchNotes();
+
+    }, [fetchLead, fetchNotes]);
 
     const addNote = async () => {
 

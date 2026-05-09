@@ -67,11 +67,13 @@ function CreateLead() {
 
     return (
 
-        <div>
+    <div>
 
-            <Navbar />
+        <Navbar />
 
-            <div className="container">
+        <div className="container">
+
+            <div className="form-page">
 
                 <h1>Create Lead</h1>
 
@@ -156,7 +158,9 @@ function CreateLead() {
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 
